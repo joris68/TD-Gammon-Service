@@ -92,3 +92,24 @@ def encode_backgammonstate(game_state : BackgammonState, is_black : bool) -> tor
      list_tensor.extend(encode_turn(is_black=is_black))
 
      return torch.tensor(list_tensor, dtype=float)
+
+
+def backgammonstate_to_json(state : BackgammonState) -> dict:
+
+     state_dict = {
+          "board" : state.board,
+          "whiteCaught" : state.whiteCaught,
+          "blackCaught" : state.blackCaught,
+          "blackBearing" : state.blackBearing,
+          "whiteBearing" : state.whiteBearing,
+          "blackOutside" : state.blackOutside,
+          "whiteOutside" : state.whiteOutside,
+          "ended" : state.ended
+     }
+     return state_dict
+
+def json_to_backgammonobject(json_state : dict) -> BackgammonState:
+     return BackgammonState(board=json_state["board"], whiteCaught=json_state["whiteCaught"], blackCaught=["blackCaught"], blackBearing=json_state["blackBearing"],
+                            whiteBearing=json_state["whiteBearing"], blackOutside=json_state["blackOutside"], whiteOutside=json_state["whiteOutside"], ended=json_state["ended"])
+
+
