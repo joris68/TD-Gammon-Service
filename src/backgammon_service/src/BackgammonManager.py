@@ -17,7 +17,8 @@ class BackgammonManager:
 
      def get_prediction(self, is_black : bool, curr_state : BackgammonState) -> BackgammonState | None:
           try:
-               next_state = self.model.infer_state(game_state=curr_state, dice=generate_dice_for_move, is_black=is_black)
+               next_state = self.model.infer_state(game_state=curr_state, dice=generate_dice_for_move() , is_black=is_black)
+               logger.info("successfully predicted the next state")
                return next_state
           except Exception as e:
                logger.error(f"could not make the prediction due to : {e}")

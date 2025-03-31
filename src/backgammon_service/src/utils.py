@@ -2,6 +2,7 @@ from src.BackgammonState import BackgammonState
 import torch
 import random
 import logging
+import json
 
 logger = logging.getLogger(__name__)
 
@@ -108,8 +109,8 @@ def backgammonstate_to_json(state : BackgammonState) -> dict:
      }
      return state_dict
 
-def json_to_backgammonobject(json_state : dict) -> BackgammonState:
-     return BackgammonState(board=json_state["board"], whiteCaught=json_state["whiteCaught"], blackCaught=["blackCaught"], blackBearing=json_state["blackBearing"],
-                            whiteBearing=json_state["whiteBearing"], blackOutside=json_state["blackOutside"], whiteOutside=json_state["whiteOutside"], ended=json_state["ended"])
+def json_to_backgammonobject(pydantic_state) -> BackgammonState:
+     return BackgammonState(board=pydantic_state.board, whiteCaught=pydantic_state.whiteCaught, blackCaught=pydantic_state.blackCaught, blackBearing=pydantic_state.blackBearing,
+                            whiteBearing=pydantic_state.whiteBearing, blackOutside=pydantic_state.blackOutside, whiteOutside=pydantic_state.whiteOutside, ended=pydantic_state.ended)
 
 

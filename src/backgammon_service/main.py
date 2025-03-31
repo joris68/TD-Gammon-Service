@@ -2,7 +2,8 @@ from fastapi import FastAPI, status, Response
 from src.BackgammonManager import BackgammonManager
 from src.BackgammonState import BackgammonState
 from src.utils import json_to_backgammonobject, backgammonstate_to_json
-from pydantic import BaseModel
+from pydantic import BaseModel, model_serializer
+from typing import Any
 import logging
 import numpy as np
 import uuid
@@ -22,7 +23,18 @@ class BackgammonStateJson(BaseModel):
      blackOutside: int
      whiteOutside : int
      ended : bool
-
+     """
+     @model_serializer
+     def ser_model(self) -> dict[str, Any]:
+        return {"board": self.board,
+                "whiteCaught" : self.whiteCaught,
+                 "blackCaught": self.blackCaught,
+                   "blackBearing": self.blackBearing,
+                   "whiteBearing": self.whiteBearing,
+                   "blackOutside": self.blackOutside,
+                   "whiteOutside": self.whiteOutside,
+                   "ended": self.ended}
+     """
 
 class PredictionRequest(BaseModel):
      is_black : bool
@@ -44,7 +56,8 @@ def create_prediction_id() -> str:
 @app.post("/pred", status_code=200)
 def make_prediction(request : PredictionRequest, response : Response) -> PredictionResponse:
      prediction_id = create_prediction_id()
-     next_state : BackgammonState = manager.get_prediction(curr_state=json_to_backgammonobject(request.curr))
+     logger.info(f"starting to serve prediction request with ID : {prediction_id}")
+     next_state : BackgammonState = manager.get_prediction(is_black=request.is_black , curr_state=json_to_backgammonobject(request.curr))
      if next_state is None:
           res = {
                "prediction_id" : prediction_id,
@@ -62,4 +75,4 @@ def make_prediction(request : PredictionRequest, response : Response) -> Predict
 
 @app.get("/health")
 def get_health():
-     return {"healthy"}
+     return {"status": "healthy"}
