@@ -1,9 +1,9 @@
 import torch
 import torch.nn as nn
-from src.BackgammonEngine import generate_moves
-from src.constants import STARTING_GAME_STATE
-from src.BackgammonState import BackgammonState
-from src.utils import generate_dice_for_move, encode_backgammonstate
+from backgammon_service.src.BackgammonEngine import generate_moves
+from backgammon_service.src.constants import STARTING_GAME_STATE
+from backgammon_service.src.BackgammonState import BackgammonState
+from backgammon_service.src.utils import generate_dice_for_move, encode_backgammonstate
 import torch.optim as optim
 import numpy as np
 import logging

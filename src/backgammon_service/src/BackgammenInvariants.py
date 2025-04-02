@@ -1,5 +1,5 @@
 
-from src.BackgammonState import BackgammonState
+from backgammon_service.src.BackgammonState import BackgammonState
 import logging
 
 logger = logging.getLogger(__name__)

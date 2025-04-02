@@ -1,4 +1,4 @@
-from src.BackgammonState import BackgammonState
+from backgammon_service.src.BackgammonState import BackgammonState
 import torch
 import random
 import logging
@@ -92,3 +92,24 @@ def encode_backgammonstate(game_state : BackgammonState, is_black : bool) -> tor
      list_tensor.extend(encode_turn(is_black=is_black))
 
      return torch.tensor(list_tensor, dtype=float)
+
+
+def backgammonstate_to_json(state : BackgammonState) -> dict:
+
+     state_dict = {
+          "board" : state.board,
+          "whiteCaught" : state.whiteCaught,
+          "blackCaught" : state.blackCaught,
+          "blackBearing" : state.blackBearing,
+          "whiteBearing" : state.whiteBearing,
+          "blackOutside" : state.blackOutside,
+          "whiteOutside" : state.whiteOutside,
+          "ended" : state.ended
+     }
+     return state_dict
+
+def json_to_backgammonobject(pydantic_state) -> BackgammonState:
+     return BackgammonState(board=pydantic_state.board, whiteCaught=pydantic_state.whiteCaught, blackCaught=pydantic_state.blackCaught, blackBearing=pydantic_state.blackBearing,
+                            whiteBearing=pydantic_state.whiteBearing, blackOutside=pydantic_state.blackOutside, whiteOutside=pydantic_state.whiteOutside, ended=pydantic_state.ended)
+
+

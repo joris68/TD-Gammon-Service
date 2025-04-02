@@ -1,9 +1,9 @@
 
-from src.BackgammonMove import BackGammonMoveBlack, BackgammenMoveWhite, BackgammonMove
-from src.BackgammonState import BackgammonState
-from src.constants import LAST_INDEX_FIELD_BOARD, FIRST_INDEX_FIELD_BOARD
+from backgammon_service.src.BackgammonMove import BackGammonMoveBlack, BackgammenMoveWhite, BackgammonMove
+from backgammon_service.src.BackgammonState import BackgammonState
+from backgammon_service.src.constants import LAST_INDEX_FIELD_BOARD, FIRST_INDEX_FIELD_BOARD
 import copy
-from src.BackgammenInvariants import backgammonstate_invariant
+from backgammon_service.src.BackgammenInvariants import backgammonstate_invariant
 from collections import Counter
 import logging
 
