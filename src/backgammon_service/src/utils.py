@@ -1,8 +1,7 @@
-from src.BackgammonState import BackgammonState
+from backgammon_service.src.BackgammonState import BackgammonState
 import torch
 import random
 import logging
-import json
 
 logger = logging.getLogger(__name__)
 

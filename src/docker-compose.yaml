@@ -1,0 +1,16 @@
+services:
+  test_backend:
+    image: test_backend
+    build: ./backend
+    ports:
+      - "8000:8000"
+    environment:
+      - PYTHONPATH=/app
+  gammon_service:
+    image: backgammon_service
+    build: ./backgammon_service
+    ports:
+      - "8001:8001"
+    environment:
+      - PYTHONPATH=/usr/local/backgammon_service
+    

@@ -1,9 +1,8 @@
 from fastapi import FastAPI, status, Response
-from src.BackgammonManager import BackgammonManager
-from src.BackgammonState import BackgammonState
-from src.utils import json_to_backgammonobject, backgammonstate_to_json
-from pydantic import BaseModel, model_serializer
-from typing import Any
+from backgammon_service.src.BackgammonManager import BackgammonManager
+from backgammon_service.src.BackgammonState import BackgammonState
+from backgammon_service.src.utils import json_to_backgammonobject, backgammonstate_to_json
+from pydantic import BaseModel
 import logging
 import numpy as np
 import uuid
@@ -13,6 +12,7 @@ logger = logging.getLogger(__name__)
 manager = BackgammonManager()
 
 app = FastAPI()
+
 
 class BackgammonStateJson(BaseModel):
      board : list[int]
@@ -34,7 +34,7 @@ class BackgammonStateJson(BaseModel):
                    "blackOutside": self.blackOutside,
                    "whiteOutside": self.whiteOutside,
                    "ended": self.ended}
-     """
+"""
 
 class PredictionRequest(BaseModel):
      is_black : bool
@@ -66,6 +66,7 @@ def make_prediction(request : PredictionRequest, response : Response) -> Predict
           response.status_code = 500
           return res
      else:
+          logger.info(f"next state prediction was successfull for req : {prediction_id}")
           res = {
                "prediction_id" : prediction_id,
                "curr" : request.curr,

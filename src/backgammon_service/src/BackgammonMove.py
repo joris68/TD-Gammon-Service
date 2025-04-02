@@ -1,5 +1,4 @@
 from abc import ABC
-from src.constants import LAST_INDEX_FIELD_INCLUDING_BEATON, FIRST_INDEX_FIELD_INCLUDING_BEATON
 
 class BackgammonMove(ABC):
 
